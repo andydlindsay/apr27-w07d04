@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import useMousePosition from '../useMousePosition';
 
 describe('useMousePosition tests', () => {
