@@ -1,30 +1,34 @@
 import { renderHook } from '@testing-library/react-hooks';
 import useMousePosition from '../useMousePosition';
 
-test('should return an x key with an integer value', () => {
-  const { result } = renderHook(() => useMousePosition());
-  expect(result.current).toHaveProperty('x');
-  expect(typeof result.current.x).toBe('number');
-});
+describe('useMousePosition tests', () => {
 
-test('should return a y key with an integer value', () => {
-  const { result } = renderHook(() => useMousePosition());
-  expect(result.current).toHaveProperty('y');
-  expect(typeof result.current.y).toBe('number');
-});
+  test('should return an x key with an integer value', () => {
+    const { result } = renderHook(() => useMousePosition());
+    expect(result.current).toHaveProperty('x');
+    expect(typeof result.current.x).toBe('number');
+  });
 
-test('should track mouse movement on the document', () => {
-  const { result } = renderHook(() => useMousePosition());
-  const coords = {
-    clientX: 30,
-    clientY: 70
-  };
-  const event = new MouseEvent('mousemove', coords);
+  test('should return a y key with an integer value', () => {
+    const { result } = renderHook(() => useMousePosition());
+    expect(result.current).toHaveProperty('y');
+    expect(typeof result.current.y).toBe('number');
+  });
 
-  act(() => { document.dispatchEvent(event) });
+  test('should track mouse movement on the document', () => {
+    const { result } = renderHook(() => useMousePosition());
+    const coords = {
+      clientX: 30,
+      clientY: 70
+    };
+    const event = new MouseEvent('mousemove', coords);
 
-  const { x, y } = result.current;
+    act(() => { document.dispatchEvent(event) });
 
-  expect(x).toBe(coords.clientX);
-  expect(y).toBe(coords.clientY);
+    const { x, y } = result.current;
+
+    expect(x).toBe(coords.clientX);
+    expect(y).toBe(coords.clientY);
+  });
+
 });
